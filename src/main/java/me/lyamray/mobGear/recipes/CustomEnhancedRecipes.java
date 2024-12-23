@@ -13,6 +13,7 @@ import org.bukkit.inventory.ShapedRecipe;
 
 @UtilityClass
 public class CustomEnhancedRecipes {
+    private final short amount = 1;
 
     public void registerRecipes() {
         for (EnhancedHeadType headType : EnhancedHeadType.values()) {
@@ -25,7 +26,7 @@ public class CustomEnhancedRecipes {
         ItemStack enhancedHead = ItemStacks.entityHead(
                 headType.getTextureUrl(),
                 headType.getEnhancedName(),
-                headType.getEnhancedLore());
+                headType.getEnhancedLore(), amount);
 
         ShapedRecipe recipe = new ShapedRecipe(
                 new NamespacedKey(MobGear.getInstance(), headType.getKey()), enhancedHead);
@@ -37,7 +38,7 @@ public class CustomEnhancedRecipes {
         ItemStack baseHead = ItemStacks.entityHead(
                 headType.getTextureUrl(),
                 headType.getDefaultName(),
-                headType.getDefaultLore());
+                headType.getDefaultLore(), amount);
 
         recipe.setIngredient('A', new ExactChoice(baseHead));
         recipe.setIngredient('B', Material.DIAMOND_BLOCK);

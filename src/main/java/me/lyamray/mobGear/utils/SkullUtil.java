@@ -16,8 +16,8 @@ import java.util.UUID;
 @UtilityClass
 public class SkullUtil {
     // Thanks JensieFlensie for this code! X
-    public ItemStack getSkull(String url) {
-        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+    public ItemStack getSkull(String url, short amount) {
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD, amount);
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
 
         UUID uuid = UUID.nameUUIDFromBytes(url.getBytes());

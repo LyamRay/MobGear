@@ -1,8 +1,10 @@
 package me.lyamray.mobGear.utils;
 
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +70,16 @@ public class ItemBuilder {
         }
         return this;
     }
-
+    public ItemBuilder setLeatherArmorColor(Color color) {
+        try {
+            LeatherArmorMeta im = (LeatherArmorMeta) itemStack.getItemMeta();
+            assert im != null;
+            im.setColor(color);
+            itemStack.setItemMeta(im);
+        } catch (ClassCastException ignored) {
+        }
+        return this;
+    }
     public ItemBuilder setDurability(short durability) {
         itemStack.setDurability(durability);
         return this;

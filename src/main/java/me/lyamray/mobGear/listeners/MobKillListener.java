@@ -49,7 +49,8 @@ public class MobKillListener implements Listener {
         if (Math.random() < chance) {
             String defName = name + " Head";
             String lore1 = "&7Use this head to craft a &bEnhanced &7version!";
-            ItemStack skull = ItemStacks.entityHead(url, defName, lore1);
+            short amount = 1;
+            ItemStack skull = ItemStacks.entityHead(url, defName, lore1, amount);
             entity.getWorld().dropItemNaturally(entity.getLocation(), skull);
             String entityType = entity.getType().toString().toLowerCase();
             player.sendMessage(ChatUtil.color("&7Good! You killed a &b" + entityType + " &7and it dropped their head!"));
