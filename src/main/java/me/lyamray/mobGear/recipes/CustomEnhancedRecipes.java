@@ -42,7 +42,6 @@ public class CustomEnhancedRecipes {
         recipe.setIngredient('A', new ExactChoice(baseHead));
         recipe.setIngredient('B', Material.DIAMOND_BLOCK);
 
-        // Add recipe to Bukkit
         Bukkit.addRecipe(recipe);
     }
 
@@ -58,7 +57,7 @@ public class CustomEnhancedRecipes {
         ),
         SILVERFISH(
                 "http://textures.minecraft.net/texture/da91dab8391af5fda54acd2c0b18fbd819b865e1a8f1d623813fa761e924540",
-                "&6Enhanced Silverfish Head",
+                "&3Enhanced Silverfish Head",
                 "&7Use this &bEnhanced &7head to craft &bSilverfish Gear&7!",
                 "&3Silverfish Head",
                 "&7Use this head to craft a &bEnhanced &7version!",
