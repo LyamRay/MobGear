@@ -36,6 +36,11 @@ public class MobKillListener implements Listener {
                 name = "&3Silverfish";
                 dropChance = 1;
             }
+            case IRON_GOLEM -> {
+                url1 = "http://textures.minecraft.net/texture/da6e0429ccaabb6f5f0c5d513c795bed6d80fce72f57f4bc3a616aee23e12572";
+                name = "&8Iron Golem";
+                dropChance = 1;
+            }
         }
         skullLogic(entity, player, url1, dropChance, name);
     }
@@ -44,7 +49,7 @@ public class MobKillListener implements Listener {
         if (Math.random() < chance) {
             String defName = name + " Head";
             String lore1 = "&7Use this head to craft a &bEnhanced &7version!";
-            ItemStack skull = ItemStacks.customSkull(url, defName, lore1);
+            ItemStack skull = ItemStacks.entityHead(url, defName, lore1);
             entity.getWorld().dropItemNaturally(entity.getLocation(), skull);
             String entityType = entity.getType().toString().toLowerCase();
             player.sendMessage(ChatUtil.color("&7Good! You killed a &b" + entityType + " &7and it dropped their head!"));
