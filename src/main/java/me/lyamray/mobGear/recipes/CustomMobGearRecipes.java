@@ -12,7 +12,7 @@ import org.bukkit.inventory.ShapedRecipe;
 @UtilityClass
 public class CustomMobGearRecipes {
 
-    public void createMobGear() {
+    public void registerMobGear() {
         registerMobGear("silverfish", "&3Enhanced Silverfish Head",
                 "http://textures.minecraft.net/texture/da91dab8391af5fda54acd2c0b18fbd819b865e1a8f1d623813fa761e924540",
                 "&7Use this &bEnhanced &7head to craft &bSilverfish Gear&7!",

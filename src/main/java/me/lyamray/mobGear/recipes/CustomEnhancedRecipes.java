@@ -15,7 +15,7 @@ import org.bukkit.inventory.ShapedRecipe;
 public class CustomEnhancedRecipes {
     private final short amount = 1;
 
-    public void registerRecipes() {
+    public void registerHeadRecipes() {
         for (EnhancedHeadType headType : EnhancedHeadType.values()) {
             createEnhancedHeadRecipe(headType);
         }

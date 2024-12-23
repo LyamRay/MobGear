@@ -17,8 +17,8 @@ public final class MobGear extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         instance = this;
-        CustomEnhancedRecipes.registerRecipes();
-        CustomMobGearRecipes.createMobGear();
+        CustomEnhancedRecipes.registerHeadRecipes();
+        CustomMobGearRecipes.registerMobGear();
         Bukkit.getPluginManager().registerEvents(new MobKillListener(), this);
         Bukkit.getPluginManager().registerEvents(new CraftingValidationListener(), this);
     }
