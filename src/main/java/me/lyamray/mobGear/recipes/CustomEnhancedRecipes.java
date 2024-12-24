@@ -3,7 +3,8 @@ package me.lyamray.mobGear.recipes;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import me.lyamray.mobGear.MobGear;
-import me.lyamray.mobGear.utils.ItemStacks;
+import me.lyamray.mobGear.utils.MobGearItemStacks;
+import me.lyamray.mobGear.utils.NormalItemStacks;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -23,7 +24,7 @@ public class CustomEnhancedRecipes {
 
     private void createEnhancedHeadRecipe(EnhancedHeadType headType) {
 
-        ItemStack enhancedHead = ItemStacks.entityHead(
+        ItemStack enhancedHead = NormalItemStacks.entityHead(
                 headType.getTextureUrl(),
                 headType.getEnhancedName(),
                 headType.getEnhancedLore(), amount);
@@ -35,7 +36,7 @@ public class CustomEnhancedRecipes {
                 "ABA",
                 "AAA");
 
-        ItemStack baseHead = ItemStacks.entityHead(
+        ItemStack baseHead = NormalItemStacks.entityHead(
                 headType.getTextureUrl(),
                 headType.getDefaultName(),
                 headType.getDefaultLore(), amount);

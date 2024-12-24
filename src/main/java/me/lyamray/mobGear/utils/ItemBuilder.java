@@ -2,12 +2,16 @@ package me.lyamray.mobGear.utils;
 
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 
 public class ItemBuilder {
@@ -31,52 +35,68 @@ public class ItemBuilder {
         return this;
     }
 
-    // Clears all existing lore
     public ItemBuilder clearLore() {
         ItemMeta meta = itemStack.getItemMeta();
         if (meta != null) {
-            meta.setLore(new ArrayList<>()); // Clears the lore
+            meta.setLore(new ArrayList<>());
             itemStack.setItemMeta(meta);
         }
         return this;
     }
 
-    // Set a specific lore line at a given index
     public ItemBuilder setLoreLine(int index, String loreLine) {
         ItemMeta meta = itemStack.getItemMeta();
         if (meta != null) {
             List<String> currentLore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
 
-            // Ensure the lore list has enough space
             while (currentLore.size() <= index) {
-                currentLore.add(""); // Add empty strings until the desired index is reached
+                currentLore.add("");
             }
 
-            currentLore.set(index, loreLine);  // Set the lore at the specific index
+            currentLore.set(index, loreLine);
             meta.setLore(currentLore);
             itemStack.setItemMeta(meta);
         }
         return this;
     }
 
-    // Add a new lore line at the end of the lore list
     public ItemBuilder addLoreLine(String loreLine) {
         ItemMeta meta = itemStack.getItemMeta();
         if (meta != null) {
             List<String> currentLore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
+            assert currentLore != null;
             currentLore.add(loreLine);
             meta.setLore(currentLore);
             itemStack.setItemMeta(meta);
         }
         return this;
     }
-    public ItemBuilder setLeatherArmorColor(Color color) {
+    public ItemBuilder addLoreLines(String loreBlock) {
+        ItemMeta meta = itemStack.getItemMeta();
+        if (meta != null) {
+            List<String> currentLore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
+            assert currentLore != null;
+            Collections.addAll(currentLore, loreBlock.split("\n"));
+            meta.setLore(currentLore);
+            itemStack.setItemMeta(meta);
+        }
+        return this;
+    }
+    public ItemBuilder setLeatherArmorColor(String hexColor) {
         try {
+            Color color = Color.fromRGB(
+                    Integer.parseInt(hexColor.substring(1, 3), 16),
+                    Integer.parseInt(hexColor.substring(3, 5), 16),
+                    Integer.parseInt(hexColor.substring(5, 7), 16)
+            );
+
             LeatherArmorMeta im = (LeatherArmorMeta) itemStack.getItemMeta();
-            assert im != null;
-            im.setColor(color);
-            itemStack.setItemMeta(im);
-        } catch (ClassCastException ignored) {
+            if (im != null) {
+                im.setColor(color);
+                itemStack.setItemMeta(im);
+            }
+        } catch (NumberFormatException | IndexOutOfBoundsException | ClassCastException e) {
+            e.printStackTrace();
         }
         return this;
     }
@@ -84,8 +104,50 @@ public class ItemBuilder {
         itemStack.setDurability(durability);
         return this;
     }
+    public ItemBuilder addEnchant(Enchantment ench, int level) {
+        ItemMeta im = itemStack.getItemMeta();
+        im.addEnchant(ench, level, true);
+        itemStack.setItemMeta(im);
+        return this;
+    }
+
+    public ItemBuilder addEnchantments(Map<Enchantment, Integer> enchantments) {
+        itemStack.addUnsafeEnchantments(enchantments);
+        return this;
+    }
+
+    public ItemBuilder setGlowing(boolean toggle) {
+        if (toggle) {
+            addUnsafeEnchantment(Enchantment.LUCK_OF_THE_SEA, 1);
+            setItemFlag(ItemFlag.HIDE_ENCHANTS);
+            return this;
+        }
+        ItemMeta im = itemStack.getItemMeta();
+        itemStack.removeEnchantment(Enchantment.LUCK_OF_THE_SEA);
+        im.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
+        itemStack.setItemMeta(im);
+        return this;
+    }
+    public ItemBuilder setItemFlag(ItemFlag itemFlag) {
+        ItemMeta im = itemStack.getItemMeta();
+        im.addItemFlags(itemFlag);
+        itemStack.setItemMeta(im);
+        return this;
+    }
+    public ItemBuilder addUnsafeEnchantment(Enchantment ench, int level) {
+        itemStack.addUnsafeEnchantment(ench, level);
+        return this;
+    }
+    public ItemBuilder setInfinityDurability() {
+        ItemMeta meta = itemStack.getItemMeta();
+        if (meta != null) {
+            meta.setUnbreakable(true);
+            itemStack.setItemMeta(meta);
+        }
+        return this;
+    }
 
     public ItemStack toItemStack() {
-        return itemStack.clone();  // Return a clone to prevent external modifications
+        return itemStack.clone();
     }
 }

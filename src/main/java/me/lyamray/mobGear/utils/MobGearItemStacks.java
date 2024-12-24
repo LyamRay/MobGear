@@ -1,43 +1,55 @@
 package me.lyamray.mobGear.utils;
 
-
 import lombok.experimental.UtilityClass;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
 @UtilityClass
-public class ItemStacks {
+public class MobGearItemStacks {
 
-    public ItemStack entityHead (String url, String name, String lore1, short amount) {
-        ItemStack head = SkullUtil.getSkull(url, amount);
-        return new ItemBuilder(head)
+    private ItemStack createBlazeArmorPiece(Material material, String name) {
+        return new ItemBuilder(new ItemStack(material))
                 .setName(ChatUtil.color(name))
-                .setLoreLine(0, ChatUtil.color(lore1))
+                .setLoreLine(0, "")
+
+                .addLoreLines(ChatUtil.color("""
+                &7This &bLegendary &7piece of equipment is forged
+                &7from the &bskulls &7of a deadly &bBlaze&7.
+                
+                &bSet Effects:
+                &31 Piece &8> &7Fire Resistance
+                &32 Pieces &8> &7Resistance I
+                &33 Pieces &8> &7Speed I
+                """))
+
+                .setLeatherArmorColor("#FFECA1")
+                .addEnchant(Enchantment.PROTECTION, 10)
+                .setGlowing(false)
+                .setInfinityDurability()
                 .toItemStack();
     }
 
-    public static ItemStack blazeHelmet() {
-
-        return new ItemBuilder(new ItemStack(Material.LEATHER_HELMET))
-                .toItemStack();
+    public ItemStack blazeHelmet() {
+        return createBlazeArmorPiece(Material.LEATHER_HELMET, "&cLegendary Blaze Helmet");
     }
 
-    public static ItemStack blazeChestplate() {
-        return new ItemBuilder(new ItemStack(Material.LEATHER_CHESTPLATE))
-                .toItemStack();
+    public ItemStack blazeChestplate() {
+        return createBlazeArmorPiece(Material.LEATHER_CHESTPLATE, "&cLegendary Blaze Chestplate");
+    }
+
+    public ItemStack blazeLeggings() {
+        return createBlazeArmorPiece(Material.LEATHER_LEGGINGS, "&cLegendary Blaze Leggings");
+    }
+
+    public ItemStack blazeBoots() {
+        return createBlazeArmorPiece(Material.LEATHER_BOOTS, "&cLegendary Blaze Boots");
     }
 
 
-    public static ItemStack blazeLeggings() {
-        return new ItemBuilder(new ItemStack(Material.LEATHER_LEGGINGS))
-                .toItemStack();
-    }
 
-    public ItemStack blazeBoots () {
-        return new ItemBuilder(new ItemStack(Material.LEATHER_BOOTS))
-                .toItemStack();
 
-    }
+
 
     public ItemStack silverfishHelmet () {
         return new ItemBuilder(new ItemStack(Material.LEATHER_HELMET))

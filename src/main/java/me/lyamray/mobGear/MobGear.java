@@ -1,10 +1,9 @@
 package me.lyamray.mobGear;
 
 import lombok.Getter;
-import me.lyamray.mobGear.listeners.CraftingValidationListener;
+import me.lyamray.mobGear.listeners.ForgeBlockListener;
 import me.lyamray.mobGear.listeners.MobKillListener;
 import me.lyamray.mobGear.recipes.CustomEnhancedRecipes;
-import me.lyamray.mobGear.recipes.CustomMobGearRecipes;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,9 +17,8 @@ public final class MobGear extends JavaPlugin {
         // Plugin startup logic
         instance = this;
         CustomEnhancedRecipes.registerHeadRecipes();
-        CustomMobGearRecipes.registerMobGear();
         Bukkit.getPluginManager().registerEvents(new MobKillListener(), this);
-        Bukkit.getPluginManager().registerEvents(new CraftingValidationListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ForgeBlockListener(), this);
     }
 
     @Override

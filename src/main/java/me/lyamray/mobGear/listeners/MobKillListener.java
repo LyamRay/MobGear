@@ -2,7 +2,8 @@ package me.lyamray.mobGear.listeners;
 
 import me.lyamray.mobGear.MobGear;
 import me.lyamray.mobGear.utils.ChatUtil;
-import me.lyamray.mobGear.utils.ItemStacks;
+import me.lyamray.mobGear.utils.MobGearItemStacks;
+import me.lyamray.mobGear.utils.NormalItemStacks;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -50,7 +51,7 @@ public class MobKillListener implements Listener {
             String defName = name + " Head";
             String lore1 = "&7Use this head to craft a &bEnhanced &7version!";
             short amount = 1;
-            ItemStack skull = ItemStacks.entityHead(url, defName, lore1, amount);
+            ItemStack skull = NormalItemStacks.entityHead(url, defName, lore1, amount);
             entity.getWorld().dropItemNaturally(entity.getLocation(), skull);
             String entityType = entity.getType().toString().toLowerCase();
             player.sendMessage(ChatUtil.color("&7Good! You killed a &b" + entityType + " &7and it dropped their head!"));
