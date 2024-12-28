@@ -3,7 +3,6 @@ package me.lyamray.mobGear.listeners;
 import me.lyamray.mobGear.utils.ChatUtil;
 import me.lyamray.mobGear.utils.ItemStacks;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -48,7 +47,7 @@ public class MobKillListener implements Listener {
                 dropChance = 1.0D;
                 break;
         }
-        skullLogic((Entity)livingEntity, player, url1, dropChance, name);
+        skullLogic(livingEntity, player, url1, dropChance, name);
     }
 
     private void skullLogic(Entity entity, Player player, String url, double chance, String name) {

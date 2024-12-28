@@ -17,7 +17,7 @@ public class MobGearUtils {
     public static void removeEnhancedHeads(Player player, String url, String nameHead, String loreHead, int requiredAmount) {
         ItemStack requiredHead = ItemStacks.entityHead(url, nameHead, loreHead);
         requiredHead.setAmount(requiredAmount);
-        Map<Integer, ItemStack> leftover = player.getInventory().removeItem(new ItemStack[] { requiredHead });
+        Map<Integer, ItemStack> leftover = player.getInventory().removeItem(requiredHead);
         if (!leftover.isEmpty())
             player.sendMessage(ChatUtil.color("&7(&c&l&7Failed to remove all Enhanced Heads from your inventory!"));
     }
@@ -26,8 +26,8 @@ public class MobGearUtils {
         try {
             String armorType = armorPiece.split(" ")[(armorPiece.split(" ")).length - 1].toUpperCase();
             CompMaterial material = CompMaterial.valueOf("LEATHER_" + armorType);
-            return ItemCreator.of(material, "&c" + armorPiece, new String[0])
-                    .lore(new String[] { firstLore, effectLore }).color(CompColor.fromName(color))
+            return ItemCreator.of(material, "&c" + armorPiece)
+                    .lore(firstLore, effectLore).color(CompColor.fromName(color))
                     .enchant(Enchantment.PROTECTION, 10)
                     .glow(false)
                     .hideTags(false)

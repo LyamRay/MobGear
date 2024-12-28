@@ -32,12 +32,37 @@ public final class CustomEnhancedRecipes {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
-    public static enum EnhancedHeadType {
-        BLAZE("http://textures.minecraft.net/texture/b78ef2e4cf2c41a2d14bfde9caff10219f5b1bf5b35a49eb51c6467882cb5f0", "&6Enhanced Blaze Head", "&7Use this &bEnhanced &7head to craft &bBlaze Gear&7!", "&6Blaze Head", "&7Use this head to craft a &bEnhanced &7version!", "enhancedBlazeHead"),
-        SILVERFISH("http://textures.minecraft.net/texture/da91dab8391af5fda54acd2c0b18fbd819b865e1a8f1d623813fa761e924540", "&3Enhanced Silverfish Head", "&7Use this &bEnhanced &7head to craft &bSilverfish Gear&7!", "&3Silverfish Head", "&7Use this head to craft a &bEnhanced &7version!", "enhancedSilverfishHead"),
-        IRONGOLEM("http://textures.minecraft.net/texture/da6e0429ccaabb6f5f0c5d513c795bed6d80fce72f57f4bc3a616aee23e12572", "&8Enhanced Iron Golem Head", "&7Use this &bEnhanced &7head to craft &bIron Golem Gear&7!", "&8Iron Golem Head", "&7Use this head to craft a &bEnhanced &7version!", "enhancedIronGolemHead"),
-        SLIME("http://textures.minecraft.net/texture/c7d29dbf3d98213ec2fb0ca25da74779e57bd0c1234268f828a3ec9869e15a9c", "&aEnhanced Slime Head", "&7Use this &bEnhanced &7head to craft &bSlime Gear&7!", "&aSlime Head", "&7Use this head to craft a &bEnhanced &7version!", "enhancedSlimeHead"),
-        CHICKEN("http://textures.minecraft.net/texture/598f6f7e0d2dd1d68e9fa0a486c6a22fef481dca7c281d554cf600836a03187f", "&cEnhanced Chicken Head", "&7Use this &bEnhanced &7head to craft &bChicken Gear&7!", "&cChicken Head", "&7Use this head to craft a &bEnhanced &7version!", "enhancedChickenHead");
+    public enum EnhancedHeadType {
+        BLAZE("http://textures.minecraft.net/texture/b78ef2e4cf2c41a2d14bfde9caff10219f5b1bf5b35a49eb51c6467882cb5f0",
+                "&6Enhanced Blaze Head",
+                "&7Use this &bEnhanced &7head to craft &bBlaze Gear&7!",
+                "&6Blaze Head",
+                "&7Use this head to craft a &bEnhanced &7version!",
+                "enhancedBlazeHead"),
+        SILVERFISH("http://textures.minecraft.net/texture/da91dab8391af5fda54acd2c0b18fbd819b865e1a8f1d623813fa761e924540",
+                "&3Enhanced Silverfish Head",
+                "&7Use this &bEnhanced &7head to craft &bSilverfish Gear&7!",
+                "&3Silverfish Head",
+                "&7Use this head to craft a &bEnhanced &7version!",
+                "enhancedSilverfishHead"),
+        IRONGOLEM("http://textures.minecraft.net/texture/da6e0429ccaabb6f5f0c5d513c795bed6d80fce72f57f4bc3a616aee23e12572",
+                "&8Enhanced Iron Golem Head",
+                "&7Use this &bEnhanced &7head to craft &bIron Golem Gear&7!",
+                "&8Iron Golem Head",
+                "&7Use this head to craft a &bEnhanced &7version!",
+                "enhancedIronGolemHead"),
+        SLIME("http://textures.minecraft.net/texture/c7d29dbf3d98213ec2fb0ca25da74779e57bd0c1234268f828a3ec9869e15a9c",
+                "&aEnhanced Slime Head",
+                "&7Use this &bEnhanced &7head to craft &bSlime Gear&7!",
+                "&aSlime Head",
+                "&7Use this head to craft a &bEnhanced &7version!",
+                "enhancedSlimeHead"),
+        CHICKEN("http://textures.minecraft.net/texture/598f6f7e0d2dd1d68e9fa0a486c6a22fef481dca7c281d554cf600836a03187f",
+                "&cEnhanced Chicken Head",
+                "&7Use this &bEnhanced &7head to craft &bChicken Gear&7!",
+                "&cChicken Head",
+                "&7Use this head to craft a &bEnhanced &7version!"
+                , "enhancedChickenHead");
 
         private final String textureUrl;
         private final String enhancedName;
