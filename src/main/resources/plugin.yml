@@ -1,0 +1,7 @@
+name: MobGear
+version: '1.0'
+main: me.lyamray.mobGear.MobGear
+api-version: '1.21'
+load: STARTUP
+authors: [ LyamRay ]
+description: A plugin that adds Mob Gear to minecraft! 
