@@ -19,32 +19,32 @@ public class MobKillListener implements Listener {
         Player player = event.getEntity().getKiller().getPlayer();
         String url1 = "";
         String name = "";
-        double dropChance = 0.2D;
+        double dropChance = 0.02; //The dropchance is now 2%
         switch (event.getEntity().getType()) {
             case BLAZE:
                 url1 = "http://textures.minecraft.net/texture/b78ef2e4cf2c41a2d14bfde9caff10219f5b1bf5b35a49eb51c6467882cb5f0";
                 name = "&6Blaze";
-                dropChance = 0.4D;
+                dropChance = 0.009;
                 break;
             case SILVERFISH:
                 url1 = "http://textures.minecraft.net/texture/da91dab8391af5fda54acd2c0b18fbd819b865e1a8f1d623813fa761e924540";
                 name = "&3Silverfish";
-                dropChance = 1.0D;
+                dropChance = 0.002;
                 break;
             case IRON_GOLEM:
                 url1 = "http://textures.minecraft.net/texture/da6e0429ccaabb6f5f0c5d513c795bed6d80fce72f57f4bc3a616aee23e12572";
                 name = "&8Iron Golem";
-                dropChance = 1.0D;
+                dropChance = 0.005;
                 break;
             case SLIME:
                 url1 = "http://textures.minecraft.net/texture/c7d29dbf3d98213ec2fb0ca25da74779e57bd0c1234268f828a3ec9869e15a9c";
                 name = "&aSlime";
-                dropChance = 1.0D;
+                dropChance = 0.005;
                 break;
             case CHICKEN:
                 url1 = "http://textures.minecraft.net/texture/598f6f7e0d2dd1d68e9fa0a486c6a22fef481dca7c281d554cf600836a03187f";
                 name = "&cChicken";
-                dropChance = 1.0D;
+                dropChance = 0.03;
                 break;
         }
         skullLogic(livingEntity, player, url1, dropChance, name);
