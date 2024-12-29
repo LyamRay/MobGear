@@ -1,5 +1,3 @@
-# THIS PLUGIN IS STILL IN DEVELOPMENT! END OF DECEMBER 2024 IT WILL BE DONE. THANKS FOR YOUR PATIENCE!
-
 # MobGear Plugin
 
 **MobGear** adds new gear with special abilities, custom mob heads, and more to enhance your Minecraft server experience! ⚡
