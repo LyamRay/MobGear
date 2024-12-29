@@ -12,7 +12,8 @@
 
 • **New Gear** ⚔️
 
-    • Equip mobs with gear that has special abilities, creating exciting new challenges and a unique PVP experience. 💥
+    • Equip mobs with gear that has special abilities, 
+      creating exciting new challenges and a unique PVP experience. 💥
 
 • **Mob Heads** 🧠  
 
