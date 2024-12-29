@@ -16,8 +16,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-public class ForgeBlockListener
-        implements Listener {
+public class ForgeBlockListener implements Listener {
     private final ArrayList<UUID> interacting = new ArrayList<>();
 
     @EventHandler
@@ -32,7 +31,7 @@ public class ForgeBlockListener
             return;
         }
         this.interacting.add(player.getUniqueId());
-        Bukkit.getScheduler().runTaskLater(MobGear.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskLaterAsynchronously(MobGear.getInstance(), () -> {
             new ForgeMainMenu().displayTo(player);
             this.interacting.remove(player.getUniqueId());
         }, 15L);
