@@ -1,141 +1,114 @@
 package me.lyamray.mobGear.listeners;
 
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.entity.Player;
-import org.bukkit.Material;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PlayerChangeArmorListener implements Listener {
 
     private static final int HELMET_SLOT = 39;
-    private static final int CHESTPLATE_SLOT = 38;
-    private static final int LEGGINGS_SLOT = 37;
     private static final int BOOTS_SLOT = 36;
+
+    private static final Map<String, PotionEffect[]> ARMOR_EFFECTS = new HashMap<>();
+    static {
+        ARMOR_EFFECTS.put("Blaze", new PotionEffect[]{
+                new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false),
+                new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false),
+                new PotionEffect(PotionEffectType.RESISTANCE, Integer.MAX_VALUE, 1, false, false)
+        });
+        ARMOR_EFFECTS.put("Iron", new PotionEffect[]{
+                new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false),
+                new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, false, false),
+                new PotionEffect(PotionEffectType.STRENGTH, Integer.MAX_VALUE, 2, false, false)
+        });
+        ARMOR_EFFECTS.put("Slime", new PotionEffect[]{
+                new PotionEffect(PotionEffectType.SLOWNESS, Integer.MAX_VALUE, 0, false, false),
+                new PotionEffect(PotionEffectType.JUMP_BOOST, Integer.MAX_VALUE, 0, false, false),
+                new PotionEffect(PotionEffectType.JUMP_BOOST, Integer.MAX_VALUE, 1, false, false)
+        });
+        ARMOR_EFFECTS.put("Silverfish", new PotionEffect[]{
+                new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false),
+                new PotionEffect(PotionEffectType.STRENGTH, Integer.MAX_VALUE, 0, false, false),
+                new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, 3, false, false)
+        });
+        ARMOR_EFFECTS.put("Chicken", new PotionEffect[]{
+                new PotionEffect(PotionEffectType.SLOW_FALLING, Integer.MAX_VALUE, 0, false, false),
+                new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false),
+                new PotionEffect(PotionEffectType.STRENGTH, Integer.MAX_VALUE, 1, false, false)
+        });
+    }
 
     @EventHandler
     public void onArmorChange(PlayerInventorySlotChangeEvent event) {
         Player player = event.getPlayer();
+        int slot = event.getSlot();
+        if (slot < BOOTS_SLOT || slot > HELMET_SLOT) return;
+
         ItemStack oldItem = event.getOldItemStack();
         ItemStack newItem = event.getNewItemStack();
-
-        int slot = event.getSlot();
-        if (slot < BOOTS_SLOT || slot > HELMET_SLOT) {
-            return;
-        }
-
         String oldGearType = getGearType(oldItem);
         String newGearType = getGearType(newItem);
-        String gearPiece = getArmorPiece(slot);
 
-        ActionType actionType = determineActionType(oldItem, newItem);
-
-        if (actionType != null) {
-            handleArmorAction(player, gearPiece, oldGearType, newGearType, actionType, newItem);
+        if (oldGearType != null && !oldGearType.equals(newGearType)) {
+            removeEffectsForGear(player, oldGearType);
         }
+
+        applyEffectsBasedOnGear(player);
     }
 
-    private ActionType determineActionType(ItemStack oldItem, ItemStack newItem) {
-        return switch (ItemActionState.from(oldItem, newItem)) {
-            case EQUIP -> ActionType.EQUIP;
-            case CHANGE -> ActionType.CHANGE;
-            case UNEQUIP -> ActionType.UNEQUIP;
-            case null -> null;
-        };
-    }
+    private void applyEffectsBasedOnGear(Player player) {
+        Map<String, Integer> wornGearTypesCount = calculateWornGearTypes(player);
+        for (Map.Entry<String, Integer> entry : wornGearTypesCount.entrySet()) {
+            String gearType = entry.getKey();
+            int piecesWorn = entry.getValue();
 
-    private void handleArmorAction(Player player, String gearPiece, String oldGearType, String newGearType, ActionType actionType, ItemStack item) {
-        if (gearPiece != null) {
-            String message = switch (actionType) {
-                case EQUIP -> "You have equipped a " + gearPiece + " of " + newGearType + " gear.";
-                case CHANGE -> "You have changed from a " + gearPiece + " of " + oldGearType + " gear to a " + gearPiece + " of " + newGearType + " gear.";
-                case UNEQUIP -> "You have unequipped a " + gearPiece + " of " + oldGearType + " gear.";
-            };
-            player.sendMessage(message);
-
-            List<String> setEffectsLore = getSetEffectsLore(item);
-            if (setEffectsLore != null) {
-                for (String lore : setEffectsLore) {
-                    player.sendMessage(lore);
+            if (ARMOR_EFFECTS.containsKey(gearType)) {
+                PotionEffect[] effects = ARMOR_EFFECTS.get(gearType);
+                for (int i = 0; i < Math.min(piecesWorn, effects.length); i++) {
+                    player.addPotionEffect(effects[i]);
                 }
             }
         }
     }
 
-    private List<String> getSetEffectsLore(ItemStack item) {
-        if (!item.hasItemMeta()) return null;
-
-        ItemMeta meta = item.getItemMeta();
-        if (meta == null || meta.getLore() == null) return null;
-
-        List<String> lore = meta.getLore();
-        boolean setEffectsFound = false;
-        int count = 0;
-        List<String> setEffects = new java.util.ArrayList<>();
-
-        for (String line : lore) {
-            if (line.contains("Set Effects")) {
-                setEffectsFound = true;
-                continue;
-            }
-            if (setEffectsFound && count < 3) {
-                setEffects.add(line);
-                count++;
-            }
-            if (count == 3) {
-                break;
+    private void removeEffectsForGear(Player player, String gearType) {
+        if (ARMOR_EFFECTS.containsKey(gearType)) {
+            PotionEffect[] effects = ARMOR_EFFECTS.get(gearType);
+            for (PotionEffect effect : effects) {
+                player.removePotionEffect(effect.getType());
             }
         }
+    }
 
-        return setEffects.isEmpty() ? null : setEffects;
+    private Map<String, Integer> calculateWornGearTypes(Player player) {
+        Map<String, Integer> wornGearTypesCount = new HashMap<>();
+        for (ItemStack item : player.getInventory().getArmorContents()) {
+            String gearType = getGearType(item);
+            if (gearType != null) {
+                wornGearTypesCount.merge(gearType, 1, Integer::sum);
+            }
+        }
+        return wornGearTypesCount;
     }
 
     private String getGearType(ItemStack item) {
-        if (!item.hasItemMeta()) return null;
-
+        if (item == null || !item.hasItemMeta()) return null;
         ItemMeta meta = item.getItemMeta();
         if (meta == null || meta.getLore() == null) return null;
-
-        for (String lore : meta.getLore()) {
-            if (lore.contains("Set Effects")) {
-                return lore.split(" ")[0].trim();
-            }
-        }
-        return null;
-    }
-
-    private String getArmorPiece(int slot) {
-        return switch (slot) {
-            case HELMET_SLOT -> "Helmet";
-            case CHESTPLATE_SLOT -> "Chestplate";
-            case LEGGINGS_SLOT -> "Leggings";
-            case BOOTS_SLOT -> "Boots";
-            default -> null;
-        };
-    }
-
-    private enum ActionType {
-        EQUIP, CHANGE, UNEQUIP
-    }
-
-    private enum ItemActionState {
-        EQUIP,
-        CHANGE,
-        UNEQUIP;
-
-        static ItemActionState from(ItemStack oldItem, ItemStack newItem) {
-            if (oldItem.getType() == Material.AIR && newItem.getType() != Material.AIR) {
-                return EQUIP;
-            } else if (oldItem.getType() != Material.AIR && newItem.getType() != Material.AIR && !oldItem.isSimilar(newItem)) {
-                return CHANGE;
-            } else if (oldItem.getType() != Material.AIR && newItem.getType() == Material.AIR) {
-                return UNEQUIP;
-            }
-            return null;
-        }
+        return meta.getLore().stream()
+                .filter(lore -> lore.contains("Set Effects"))
+                .map(lore -> lore.split(" ")[0].trim())
+                .map(ChatColor::stripColor)
+                .findFirst()
+                .orElse(null);
     }
 }
