@@ -31,7 +31,7 @@ public class ForgeBlockListener implements Listener {
             return;
         }
         this.interacting.add(player.getUniqueId());
-        Bukkit.getScheduler().runTaskLaterAsynchronously(MobGear.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskLater(MobGear.getInstance(), () -> {
             new ForgeMainMenu().displayTo(player);
             this.interacting.remove(player.getUniqueId());
         }, 15L);
