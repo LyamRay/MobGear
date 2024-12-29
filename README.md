@@ -38,7 +38,7 @@
 
 #### • Head-drop chance of this mob:
 
-    • 0.0001% OR 1 / 7.000 mobs.
+    • 0.0001% OR 1 / 10.000 mobs.
 
 #### • This Mob Gear set grants these perks:
 
@@ -54,7 +54,7 @@
 ### • **Iron Golem**
 #### • Head-drop chance of this mob:
 
-    • 0.000142857% OR 1 / 10.000 mobs.
+    • 0.000142857% OR 1 / 7.000 mobs.
 #### • This Mob Gear set grants these perks:
 
     • Speed I 
