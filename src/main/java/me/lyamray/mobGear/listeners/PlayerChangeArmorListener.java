@@ -20,30 +20,31 @@ public class PlayerChangeArmorListener implements Listener {
 
     private static final Map<String, PotionEffect[]> ARMOR_EFFECTS = new HashMap<>();
     static {
+        int inf = -1;
         ARMOR_EFFECTS.put("Blaze", new PotionEffect[]{
-                new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false),
-                new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false),
-                new PotionEffect(PotionEffectType.RESISTANCE, Integer.MAX_VALUE, 1, false, false)
+                new PotionEffect(PotionEffectType.FIRE_RESISTANCE, inf, 0, false, false),
+                new PotionEffect(PotionEffectType.SPEED, inf, 0, false, false),
+                new PotionEffect(PotionEffectType.RESISTANCE, inf, 1, false, false)
         });
         ARMOR_EFFECTS.put("Iron", new PotionEffect[]{
-                new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false),
-                new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, false, false),
-                new PotionEffect(PotionEffectType.STRENGTH, Integer.MAX_VALUE, 2, false, false)
+                new PotionEffect(PotionEffectType.SPEED, inf, 0, false, false),
+                new PotionEffect(PotionEffectType.REGENERATION, inf, 1, false, false),
+                new PotionEffect(PotionEffectType.STRENGTH, inf, 2, false, false)
         });
         ARMOR_EFFECTS.put("Slime", new PotionEffect[]{
-                new PotionEffect(PotionEffectType.SLOWNESS, Integer.MAX_VALUE, 0, false, false),
-                new PotionEffect(PotionEffectType.JUMP_BOOST, Integer.MAX_VALUE, 0, false, false),
-                new PotionEffect(PotionEffectType.JUMP_BOOST, Integer.MAX_VALUE, 1, false, false)
+                new PotionEffect(PotionEffectType.SLOWNESS, inf, 0, false, false),
+                new PotionEffect(PotionEffectType.JUMP_BOOST, inf, 0, false, false),
+                new PotionEffect(PotionEffectType.JUMP_BOOST, inf, 1, false, false)
         });
         ARMOR_EFFECTS.put("Silverfish", new PotionEffect[]{
-                new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false),
-                new PotionEffect(PotionEffectType.STRENGTH, Integer.MAX_VALUE, 0, false, false),
-                new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, 3, false, false)
+                new PotionEffect(PotionEffectType.SPEED, inf, 0, false, false),
+                new PotionEffect(PotionEffectType.STRENGTH, inf, 0, false, false),
+                new PotionEffect(PotionEffectType.HEALTH_BOOST, inf, 3, false, false)
         });
         ARMOR_EFFECTS.put("Chicken", new PotionEffect[]{
-                new PotionEffect(PotionEffectType.SLOW_FALLING, Integer.MAX_VALUE, 0, false, false),
-                new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false),
-                new PotionEffect(PotionEffectType.STRENGTH, Integer.MAX_VALUE, 1, false, false)
+                new PotionEffect(PotionEffectType.SLOW_FALLING, inf, 0, false, false),
+                new PotionEffect(PotionEffectType.SPEED, inf, 0, false, false),
+                new PotionEffect(PotionEffectType.STRENGTH, inf, 1, false, false)
         });
     }
 
@@ -103,7 +104,7 @@ public class PlayerChangeArmorListener implements Listener {
     private String getGearType(ItemStack item) {
         if (item == null || !item.hasItemMeta()) return null;
         ItemMeta meta = item.getItemMeta();
-        if (meta == null || meta.getLore() == null) return null;
+        if (meta.getLore() == null) return null;
         return meta.getLore().stream()
                 .filter(lore -> lore.contains("Set Effects"))
                 .map(lore -> lore.split(" ")[0].trim())

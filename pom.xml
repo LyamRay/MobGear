@@ -55,7 +55,6 @@
                             <shadedPattern>me.lyamray.mobgear.lib</shadedPattern>
                         </relocation>
                     </relocations>
-
                 </configuration>
             </plugin>
         </plugins>

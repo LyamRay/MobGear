@@ -1,6 +1,7 @@
 package me.lyamray.mobGear.recipes;
 
 import lombok.Generated;
+import lombok.experimental.UtilityClass;
 import me.lyamray.mobGear.MobGear;
 import me.lyamray.mobGear.utils.ItemStacks;
 import org.bukkit.Bukkit;
@@ -10,14 +11,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 
-public final class CustomEnhancedRecipes {
-    public static void registerHeadRecipes() {
+@UtilityClass
+public class CustomEnhancedRecipes {
+
+    public void registerHeadRecipes() {
         for (EnhancedHeadType headType : EnhancedHeadType.values()) {
-            CustomEnhancedRecipes.createEnhancedHeadRecipe(headType);
+            createEnhancedHeadRecipe(headType);
         }
     }
 
-    private static void createEnhancedHeadRecipe(EnhancedHeadType headType) {
+    private void createEnhancedHeadRecipe(EnhancedHeadType headType) {
         ItemStack enhancedHead = ItemStacks.entityHead(headType.getTextureUrl(), headType.getEnhancedName(), headType.getEnhancedLore());
         ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(MobGear.getInstance(), headType.getKey()), enhancedHead);
         recipe.shape("AAA", "ABA", "AAA");
@@ -25,11 +28,6 @@ public final class CustomEnhancedRecipes {
         recipe.setIngredient('A', new RecipeChoice.ExactChoice(baseHead));
         recipe.setIngredient('B', Material.DIAMOND_BLOCK);
         Bukkit.addRecipe(recipe);
-    }
-
-    @Generated
-    private CustomEnhancedRecipes() {
-        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
     public enum EnhancedHeadType {

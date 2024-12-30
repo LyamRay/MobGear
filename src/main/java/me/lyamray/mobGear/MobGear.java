@@ -16,11 +16,12 @@ public final class MobGear extends SimplePlugin {
     public void onPluginStart() {
         instance = this;
         CustomEnhancedRecipes.registerHeadRecipes();
-        Bukkit.getPluginManager().registerEvents(new MobKillListener(),this);
+        Bukkit.getPluginManager().registerEvents(new MobKillListener(), this);
         Bukkit.getPluginManager().registerEvents(new ForgeBlockListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerChangeArmorListener(), this);
     }
 
-    public void onPluginStop() {}
+    public void onPluginStop() {
+    }
 }
