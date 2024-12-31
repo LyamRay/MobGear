@@ -1,7 +1,7 @@
 # MobGear Plugin
 
 **MobGear** adds new gear with special abilities, custom mob heads, and more to enhance your Minecraft server experience! ⚡
-
+# [Forge Explain Video!](https://youtu.be/BcbvoQdkKTE)
 ****
 ## Features:
 
